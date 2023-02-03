@@ -3,10 +3,10 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -22,9 +22,12 @@ func main() {
 
 // match returns true if src matches pattern,
 // false otherwise.
-func wordcount(src string) int {
+func wordcount(src string) string {
+	if src == "" {
+		return "0"
+	}
 	arr := strings.Split(src, " ")
-	return len(arr)
+	return strconv.Itoa(len(arr))
 }
 
 // readInput reads pattern and source string
@@ -32,9 +35,6 @@ func wordcount(src string) int {
 func readInput() (src string, err error) {
 	flag.Parse()
 	myVal := strings.Join(flag.Args(), " ")
-	if myVal == "" {
-		return myVal, errors.New("missing string to match")
-	}
 	return myVal, nil
 }
 
